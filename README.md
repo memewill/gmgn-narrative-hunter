@@ -1,16 +1,85 @@
-# React + Vite
+# Narrative Hunter
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+AI-powered memecoin narrative aggregation for GMGN App. Automatically analyzes on-chain data and social trends to identify the hottest 5 narrative themes every hour.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- AI narrative analysis (Grok + GMGN on-chain data)
+- Real-time token data with GMGN contract address links
+- Related tweet timeline for each narrative
+- Multi-language support (Simplified Chinese, Traditional Chinese, English)
+- Auto-refresh every hour + manual refresh
+- Mobile-first responsive design
 
-## React Compiler
+## Quick Start
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```bash
+# Install dependencies
+npm install
 
-## Expanding the ESLint configuration
+# Copy env and add your Grok API key
+cp .env.example .env
+# Edit .env and set GROK_API_KEY
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+# Start backend (port 3001)
+npm run server
+
+# Start frontend (port 5173, proxies /api to backend)
+npm run dev
+```
+
+Open http://localhost:5173 to view the app.
+
+## Static Demo (No Backend)
+
+The frontend works without the backend — it falls back to mock data automatically.
+
+```bash
+npm install
+npm run dev
+```
+
+## Build & Deploy
+
+```bash
+npm run build    # Outputs to dist/
+```
+
+GitHub Pages deployment is configured via `.github/workflows/deploy.yml`. Push to `main` to trigger automatic deployment.
+
+## Project Structure
+
+```
+server/
+  index.js          # Express server + hourly cron
+  gmgnFetcher.js    # GMGN API data fetcher + token index
+  grokClient.js     # Grok API 3-round conversation
+src/
+  App.jsx           # Main app with routing
+  components/
+    Header.jsx      # Navigation + tabs
+    NarrativeCard.jsx   # List page card
+    NarrativeDetail.jsx # Detail page
+    TweetEmbed.jsx      # Tweet content card
+  hooks/
+    useNarratives.js    # API polling hook
+  data/
+    mockNarratives.js   # Fallback demo data
+  utils/
+    tokenUrl.js         # GMGN token link builder
+```
+
+## API Endpoints
+
+| Method | Path | Description |
+|---|---|---|
+| GET | `/api/narratives` | Latest narrative data |
+| GET | `/api/status` | Pipeline status |
+| POST | `/api/refresh` | Force refresh |
+
+## Environment Variables
+
+| Variable | Description | Default |
+|---|---|---|
+| `GROK_API_KEY` | Grok API key from x.ai | (required) |
+| `GROK_MODEL` | Grok model name | `grok-4-1-fast` |
