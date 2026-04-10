@@ -1,7 +1,8 @@
 import { useState, useEffect, useCallback } from 'react';
 import { narrativeData as mockData } from '../data/mockNarratives';
 
-const API_URL = '/api/narratives';
+const BASE_URL = import.meta.env.VITE_API_BASE_URL || '';
+const API_URL = `${BASE_URL}/api/narratives`;
 const POLL_INTERVAL = 30_000; // Poll every 30s for updates
 
 export function useNarratives() {
@@ -45,7 +46,7 @@ export function useNarratives() {
 
   const refresh = useCallback(async () => {
     try {
-      await fetch('/api/refresh', { method: 'POST' });
+      await fetch(`${BASE_URL}/api/refresh`, { method: 'POST' });
       // Will pick up new data on next poll
     } catch {
       // ignore

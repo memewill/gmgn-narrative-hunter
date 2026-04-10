@@ -24,7 +24,7 @@ let latestNarratives = {
 let isRunning = false;
 
 // Load system prompt
-const PROMPT_PATH = '/Users/zhongwei/gmgn/gmgndata/memeindex/gmgninsight_prompt_副本0109.md';
+const PROMPT_PATH = join(__dirname, 'system_prompt.md');
 let systemPrompt;
 try {
   systemPrompt = readFileSync(PROMPT_PATH, 'utf-8');
