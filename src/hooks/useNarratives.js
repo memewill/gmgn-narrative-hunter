@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { narrativeData as mockData } from '../data/mockNarratives';
 
 const BASE_URL = import.meta.env.VITE_API_BASE_URL || '';
@@ -9,6 +9,12 @@ export function useNarratives() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const dataRef = useRef(data);
+
+  // Keep ref in sync with state
+  useEffect(() => {
+    dataRef.current = data;
+  }, [data]);
 
   const fetchData = useCallback(async () => {
     try {
@@ -22,27 +28,27 @@ export function useNarratives() {
         setError(null);
       } else if (json.status === 'initializing' || json.status === 'fetching' || json.status === 'analyzing') {
         // Backend is loading, keep mock data but show status
-        if (!data) {
+        if (!dataRef.current) {
           setData({ ...mockData, status: json.status });
         } else {
           setData(prev => ({ ...prev, status: json.status }));
         }
       } else {
         // Fallback to mock
-        if (!data || data.ai_narrative_hunter?.length === 0) {
+        if (!dataRef.current || dataRef.current.ai_narrative_hunter?.length === 0) {
           setData({ ...mockData, status: 'mock' });
         }
       }
     } catch {
       // API not available, use mock data
-      if (!data) {
+      if (!dataRef.current) {
         setData({ ...mockData, status: 'offline' });
       }
       setError('Backend offline, showing demo data');
     } finally {
       setLoading(false);
     }
-  }, [data]);
+  }, []); // no dependencies — stable reference
 
   const refresh = useCallback(async () => {
     try {
