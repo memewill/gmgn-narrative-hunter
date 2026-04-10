@@ -41,6 +41,11 @@ app.use((req, res, next) => {
   next();
 });
 
+// Health check / root
+app.get('/', (req, res) => {
+  res.json({ service: 'Narrative Hunter API', status: 'ok' });
+});
+
 // API: get latest narratives
 app.get('/api/narratives', (req, res) => {
   res.json(latestNarratives);
