@@ -1,0 +1,146 @@
+/* X Tracker style tweet card */
+.xt-card {
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border-color);
+  cursor: pointer;
+}
+
+.xt-card:last-child {
+  border-bottom: none;
+}
+
+.xt-card:active {
+  background: var(--bg-secondary);
+}
+
+/* Header */
+.xt-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.xt-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #e8e8e8;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.xt-avatar-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
+
+.xt-avatar-fallback {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 700;
+  color: #999;
+  background: #e8e8e8;
+}
+
+.xt-user {
+  flex: 1;
+  min-width: 0;
+}
+
+.xt-user-top {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.xt-displayname {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.xt-kol-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 1px 5px;
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--accent-green);
+  border: 1px solid var(--accent-green);
+  border-radius: 3px;
+  line-height: 1.2;
+  flex-shrink: 0;
+}
+
+.xt-handle {
+  font-size: 12px;
+  color: var(--text-tertiary);
+}
+
+.xt-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.xt-time {
+  font-size: 12px;
+  color: var(--accent-green);
+  font-weight: 500;
+}
+
+.xt-reply-icon {
+  opacity: 0.4;
+}
+
+/* Body */
+.xt-body {
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--text-primary);
+  margin-left: 50px;
+  word-break: break-word;
+  white-space: pre-wrap;
+}
+
+.xt-ticker {
+  color: var(--accent-green);
+  font-weight: 600;
+}
+
+.xt-mention {
+  color: var(--accent-blue);
+}
+
+.xt-link {
+  color: var(--accent-blue);
+  font-size: 13px;
+}
+
+/* Footer */
+.xt-footer {
+  display: flex;
+  gap: 20px;
+  margin-top: 8px;
+  margin-left: 50px;
+}
+
+.xt-stat {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  color: var(--text-tertiary);
+}
